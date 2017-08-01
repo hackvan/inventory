@@ -11,7 +11,9 @@
     <tr>
       <td><%= product.name %></td>
       <td><%= product.price %></td>
-      <td></td>
+      <td>
+        <%= product.categories.map(&:name).to_sentence(last_word_connector: ' y ') %>
+      </td>
       <td>
         <%= link_to "Editar", edit_product_path(product) %>
         <%= link_to "Eliminar", product, method: :delete %>

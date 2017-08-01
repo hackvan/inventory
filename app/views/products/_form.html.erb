@@ -16,8 +16,10 @@
     <%= f.number_field :price, class: "form-control input-lg", placeholder: "Precio del producto" %>
   </div>
   <div class="form-group">
-    <% @categories.each do |category| %>
-      <input id="cbox<%= category.id %>" type="checkbox" value="<%= category.id %>"> <label for="cbox<%= category.id %>"><%= category.name %></label><br>
+    <!-- <%= hidden_field_tag "product[category_ids][]", nil %> -->
+    <% Category.all.each do |category| %>
+      <%= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category), id: dom_id(category) %>
+      <%= label_tag dom_id(category), category.name %><br>
     <% end %>
   </div>
   <div>
