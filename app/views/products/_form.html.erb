@@ -16,13 +16,13 @@
     <div class="form-group">
       <%= f.number_field :price, class: "form-control input-lg", placeholder: "Precio del producto" %>
     </div>
-    <div class="form-group">
-      <% Category.all.each do |category| %>
-        <%= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category), id: dom_id(category) %>
-        <%= label_tag dom_id(category), category.name %>
-        <br>
-      <% end %>
-    </div>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name  do |c| %>
+      <div class="checkbox">
+        <%= c.label do %>
+          <%= c.check_box %> <%= c.object.name %>
+        <% end %>
+      </div>
+    <% end %>
     <div>
       <%= f.submit form_title, class: "btn btn-primary btn-lg btn-block" %>
     </div>
