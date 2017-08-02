@@ -1,28 +1,30 @@
-<h1><%= form_title %></h1>
-<% if @product.errors.any? %>
-  <div class="alert alert-danger">
-    <ul>
-    <% @product.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-<%= form_for @product do |f| %>
-  <div class="form-group">
-    <%= f.text_field :name, class: "form-control input-lg", placeholder: "Nombre del producto" %>
-  </div>
-  <div class="form-group">
-    <%= f.number_field :price, class: "form-control input-lg", placeholder: "Precio del producto" %>
-  </div>
-  <div class="form-group">
-    <!-- <%= hidden_field_tag "product[category_ids][]", nil %> -->
-    <% Category.all.each do |category| %>
-      <%= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category), id: dom_id(category) %>
-      <%= label_tag dom_id(category), category.name %><br>
-    <% end %>
-  </div>
-  <div>
-    <%= f.submit form_title, class: "btn btn-primary btn-lg btn-block" %>
-  </div>
-<% end %>
+<div class="col-sm-6 col-sm-offset-3">
+  <h1><%= form_title %></h1>
+  <% if @product.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_for @product do |f| %>
+    <div class="form-group">
+      <%= f.text_field :name, class: "form-control input-lg", placeholder: "Nombre del producto" %>
+    </div>
+    <div class="form-group">
+      <%= f.number_field :price, class: "form-control input-lg", placeholder: "Precio del producto" %>
+    </div>
+    <div class="form-group">
+      <% Category.all.each do |category| %>
+        <%= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category), id: dom_id(category) %>
+        <%= label_tag dom_id(category), category.name %>
+        <br>
+      <% end %>
+    </div>
+    <div>
+      <%= f.submit form_title, class: "btn btn-primary btn-lg btn-block" %>
+    </div>
+  <% end %>
+</div>
